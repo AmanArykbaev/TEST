@@ -127,6 +127,28 @@ public class DictionaryTester {
 		}
 
 	}
+	/*
+	 * 
+	 * removeSpace method will remove spaces in the given String' We have to go
+	 * through each char and convert it to String otherwise 'If' condition will not
+	 * work.
+	 */
+
+	public String removeSpaces(String found) {
+		String removedcharsWord = "";
+		String wrd;
+		for (int l = 0; l < found.length(); l++) {
+			wrd = String.valueOf(found.charAt(l));
+			if (!wrd.equals(" ")) {
+				removedcharsWord += wrd;
+
+			}
+
+		}
+		String removedW = removedcharsWord.replaceAll("[^a-zA-Z0-9]", "");
+
+		return removedW;
+	}
 
     
 }
