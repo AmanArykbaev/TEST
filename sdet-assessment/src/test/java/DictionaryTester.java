@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -65,19 +66,20 @@ public class DictionaryTester {
 	}
 
 	/**
-	 * Validate all all possible words that existing in the dictionary (EnglishWords in this case)
-	 * to mock the isEnglishWord function
+	 * Validate all all possible words that existing in the dictionary (EnglishWords
+	 * in this case) to mock the isEnglishWord function
 	 * 
 	 */
 
 	@Test
-    public void validateWorkingWord() {
-        when(dictService.isEnglishWord("WORKING")).thenReturn(isThisEnglish("WORKING"));
-        Assert.assertTrue(dictionary.isEnglishWord("WORKING"));
-        // Print all possible words
-        dictionary.findPossibleWords("WORKING");
-    }
-	
+	public void validateWorkingWord() {
+		when(dictService.isEnglishWord("working")).thenReturn(isThisEnglish("working"));
+		Assert.assertTrue(dictionary.isEnglishWord("working"));
+		// Print all possible words
+		dictionary.findPossibleWords("working");
+		
+	}
+
 	/**
 	 * Validate if given word exists in the dictionary (EnglishWords in this case)
 	 * to mock the isEnglishWord function
@@ -85,17 +87,17 @@ public class DictionaryTester {
 	 * @param word
 	 * @return word
 	 */
-	
-	
+
 	public String enterWord() {
 		Scanner myObj = new Scanner(System.in); // Create a Scanner object
 		System.out.println("");
-		System.out.println("Enter Engilsh word");
+		System.out.println("Enter English word");
 
 		String word = myObj.nextLine(); // Read user input
 		System.out.println("The word you entered is: " + word); // Output user input
+		String removedchars = removeSpaces(word);
 
-		return word;
+		return removedchars;
 
 	}
 
@@ -106,6 +108,11 @@ public class DictionaryTester {
 				System.out.println(word + " is a valid english word");
 				return true;
 			}
+			if(word.isEmpty()) {
+				
+				System.out.println("The word does not exist in dictionary");
+				break;
+			}
 		}
 		return false;
 	}
@@ -114,17 +121,21 @@ public class DictionaryTester {
 	public void validateWord() {
 		enteredWord = enterWord();
 		when(dictService.isEnglishWord(enteredWord)).thenReturn(isThisEnglish(enteredWord));
-		Assert.assertTrue(dictionary.isEnglishWord(enteredWord));
+		Assert.assertTrue(dictionary.isEnglishWord(enteredWord));  //Assert will stop execution for empty or null word output.
 
 		List<String> listWords = createDictionaryArray();
 
 		for (int c = 1; c < listWords.size(); c++) {
 			if (enteredWord.contains(listWords.get(c))) {
+
 				System.out.println("Word is: " + listWords.get(c));
 
 			}
 
 		}
+		
+
+		
 
 	}
 	/*
@@ -143,12 +154,11 @@ public class DictionaryTester {
 				removedcharsWord += wrd;
 
 			}
+			
 
 		}
 		String removedW = removedcharsWord.replaceAll("[^a-zA-Z0-9]", "");
 
 		return removedW;
 	}
-
-    
 }
