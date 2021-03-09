@@ -23,3 +23,5 @@ Instructions
 **Assumptions**
 
 Since letters are part of the mocked dictionary, they will also be part of the list with the possible combinations of a given string in case the string has them. A true value will be returned if a letter alone is evaluated against isEnglishWord method .
+
+Link for the dictionary: http://www.mit.edu/~ecprice/wordlist.10000
